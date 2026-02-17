@@ -1076,13 +1076,37 @@ Manda um desafio impossível! 🎯`
         
         // Foco no input
         input.focus();
-    </script>
+        fetch("/api/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    message: input.value
+  })
+})
+.then(res => res.json())
+.then(data => {
+  console.log(data);
+});
+        function testarAPI() {
+  fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: "teste"
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(JSON.stringify(data));
+  });
+testarAPI();
+alert("script funcionando");
+</script>
 </body>
 </html>
-
-t
-        input.focus();
-    </script>
-</body>
-</html>
+    
 
