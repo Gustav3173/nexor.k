@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   try {
-    const { message } = req.body;
+    const { message } = req.body || {};
 
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -10,17 +10,17 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "llama3-8b-8192",
-        messages: [{ role: "user", content: message }]
+        messages: [{ role: "user", content: message || "oi" }]
       })
     });
 
     const data = await response.json();
 
     res.status(200).json({
-      reply: data.choices?.[0]?.message?.content || "Erro"
+      reply: data.choices?.[0]?.message?.content || "Sem resposta"
     });
 
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({ error: "Erro no servidor" });
   }
 }
